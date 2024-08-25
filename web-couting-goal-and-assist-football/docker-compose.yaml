@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./webst:/var/www/html/webst
+      - ./webst/dbconnect.php:/var/www/html/webst/dbconnect.php
+      - ./php.ini:/usr/local/etc/php/php.ini
+
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: myfootball_stats
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+      - ./myfootball_stats.sql:/docker-entrypoint-initdb.d/myfootball_stats.sql
+    command: ["--init-file", "/docker-entrypoint-initdb.d/myfootball_stats.sql"]

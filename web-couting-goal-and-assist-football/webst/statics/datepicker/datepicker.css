@@ -1,0 +1,60 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.datepicker {
+    position: relative;
+    display: inline-block;
+}
+
+.datepicker input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.datepicker .calendar {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ccc;
+    display: none;
+    margin-top: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.datepicker .calendar.active {
+    display: block;
+}
+
+.datepicker .calendar div {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.datepicker .calendar div:hover {
+    background-color: #f0f0f0;
+}
+
+.datepicker .calendar div.date {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.datepicker .calendar div.empty {
+    visibility: hidden;
+}
