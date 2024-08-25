@@ -34,14 +34,16 @@
         # code...
         if (isset($_SESSION['user_id'])) { //check authen.idor
             $user_id = $_SESSION['user_id'];
+            $sql = "INSERT INTO myshoes (nameshoes, size, owner_id) VALUES (?, ?, ?)";
 
             $shoeName= $_POST['shoeName'];
             $shoeSize = $_POST['shoeSize'];
-            $q = "INSERT INTO myshoes (nameshoes, size, owner_id)
-            values('$shoeName', '$shoeSize', '$user_id' )
-            ";
-            mysqli_query($conn, $q);
-
+            // $q = "INSERT INTO myshoes (nameshoes, size, owner_id)
+            // values('$shoeName', '$shoeSize', '$user_id' )
+            // ";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ssi", $shoeName, $shoeSize, $user_id);
+            $stmt->execute();
     }
 }
 ?>

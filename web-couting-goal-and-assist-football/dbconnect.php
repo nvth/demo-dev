@@ -1,7 +1,7 @@
 <?php
-    $dbserver='mysql';
+    $dbserver='localhost';
     $userdb='root';
-    $passdb='root';
+    $passdb='';
     $dbname='myfootball_stats';
 
     $conn = new mysqli($dbserver, $userdb, $passdb, $dbname);

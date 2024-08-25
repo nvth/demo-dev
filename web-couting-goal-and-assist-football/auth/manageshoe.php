@@ -28,22 +28,25 @@ if (isset($_GET['id'])) {
     $sql = "SELECT si.stadium_name, si.info_id, ms.nameshoes, ms.size, si.scored, si.assisted, si.matchday
             FROM myshoes ms
             INNER JOIN shoeinformation si ON ms.shoe_id = si.shoe_id
-            WHERE ms.shoe_id = $ms_shoeID";
+            WHERE ms.shoe_id = ?";
 
-$rs = mysqli_query($conn, $sql);
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $ms_shoeID);
+$stmt->execute();
+$rs = $stmt->get_result();
 
 while ($row = mysqli_fetch_array($rs)) {
 ?>
     <tr>
-        <td><?php echo $row['stadium_name']?></td>
-        <td><?php echo $row['nameshoes']?></td>
-        <td><?php echo $row['size']?></td>
-        <td><?php echo $row['scored']?></td>
-        <td><?php echo $row['assisted']?></td>
-        <td><?php echo $row['matchday']?></td>
+        <td><?php echo htmlspecialchars($row['stadium_name'], ENT_QUOTES, 'UTF-8');?></td>
+        <td><?php echo htmlspecialchars($row['nameshoes'], ENT_QUOTES, 'UTF-8');?></td>
+        <td><?php echo htmlspecialchars($row['size'], ENT_QUOTES, 'UTF-8');?></td>
+        <td><?php echo htmlspecialchars($row['scored'], ENT_QUOTES, 'UTF-8');?></td>
+        <td><?php echo htmlspecialchars($row['assisted'], ENT_QUOTES, 'UTF-8');?></td>
+        <td><?php echo htmlspecialchars($row['matchday'], ENT_QUOTES, 'UTF-8');?></td>
         <td class="action-buttons">
         <form action="deteleShoeinfo.php" class="delete-form" method="POST">
-            <input name="info_id" value="<?php echo $row['info_id'] ?>" type="hidden">
+            <input name="info_id" value="<?php echo htmlspecialchars($row['info_id'], ENT_QUOTES, 'UTF-8'); ?>" type="hidden">
             <button type="submit" class='btn btn-delete'>Delete</button>
         </form>
     </td>
@@ -52,6 +55,8 @@ while ($row = mysqli_fetch_array($rs)) {
 <?php 
     } 
 }
+$stmt->close();
+$conn->close();
 ?>
 </table>
 <button class="btn btn-add" onclick="window.location.href='details.php'">Back to Details</button>

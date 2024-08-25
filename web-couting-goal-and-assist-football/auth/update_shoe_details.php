@@ -29,8 +29,8 @@ if (isset($_SESSION['user_id'])) {
             $shoe_id = $row['shoe_id'];
             $nameshoes = $row['nameshoes'];
         ?>
-            <option value="<?php echo $row['shoe_id']; ?>"> 
-                <?php echo $nameshoes; ?> 
+            <option value="<?php echo htmlspecialchars($row['shoe_id'],ENT_QUOTES, 'UTF-8'); ?>"> 
+                <?php echo htmlspecialchars($nameshoes,ENT_QUOTES, 'UTF-8'); ?> 
             </option>
     <?php } ?>
 </select>
@@ -64,8 +64,12 @@ if (isset($_SESSION['user_id'])) {
         $updateStadium = $_POST['stadium_name'];
         $updateMatchday = $_POST['matchday'];
 
-        $q = "INSERT INTO shoeinformation (shoe_id, scored, assisted, stadium_name, matchday) VALUES ('$updateShoeid', '$updateScore', '$updateAssisted', '$updateStadium', '$updateMatchday')";
-        mysqli_query($conn, $q);
+        // $q = "INSERT INTO shoeinformation (shoe_id, scored, assisted, stadium_name, matchday) VALUES ('$updateShoeid', '$updateScore', '$updateAssisted', '$updateStadium', '$updateMatchday')";
+        // mysqli_query($conn, $q);
+        $sql = "INSERT INTO shoeinformation (shoe_id, scored, assisted, stadium_name, matchday) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("iiiss", $updateShoeid, $updateScore, $updateAssisted, $updateStadium, $updateMatchday);
+        $stmt->execute();
         header('location: details.php');
     }
 ?>

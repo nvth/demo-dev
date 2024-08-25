@@ -38,15 +38,15 @@
     while ($row = mysqli_fetch_array($rs)) {
 ?>
     <tr>
-        <td class="shoe-name"><?php echo $row['nameshoes'] ?></td>
-        <td class="shoe-size"><?php echo $row['size'] ?></td>
+        <td class="shoe-name"><?php echo htmlspecialchars($row['nameshoes']),ENT_QUOTES, 'UTF-8' ?></td>
+        <td class="shoe-size"><?php echo htmlspecialchars($row['size']),ENT_QUOTES, 'UTF-8' ?></td>
         <td class="action-buttons">
             <form method="post" action="editShoe.php">
-                <input type="hidden" name="shoe_id_update" value="<?php echo $row['shoe_id'] ?>">
+                <input type="hidden" name="shoe_id_update" value="<?php echo htmlspecialchars($row['shoe_id'], ENT_QUOTES, 'UTF-8') ?>">
                 <button type="submit">Edit</button>
             </form>
             <form method="post" action="deleteShoe.php">
-                <input type="hidden" name="delete_shoe_id" value="<?php echo $row['shoe_id'] ?>">
+                <input type="hidden" name="delete_shoe_id" value="<?php echo htmlspecialchars($row['shoe_id'], ENT_QUOTES, 'UTF-8') ?>">
                 <button type="submit">Delete</button>
             </form>
         </td>

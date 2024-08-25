@@ -1,3 +1,0 @@
-79b6fd5ecce7 | your_mysql_container
-
-docker exec -i your_mysql_container mysql -u root -p root myfootball_stats < myfootball_stats.sql

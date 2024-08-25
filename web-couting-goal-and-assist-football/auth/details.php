@@ -42,9 +42,9 @@
 <!-- HTML BLOCK-->
     <tr>
         <!--lấy dư liệu shoe_id từ database-->
-        <td class="shoeNameCell" data-shoe-id="<?php echo $row['shoe_id']; ?>"><?php echo $row['nameshoes']; ?></td>
-        <td><?php echo $row['total_scored']?></td>
-        <td><?php echo $row['total_assisted']?></td>
+        <td class="shoeNameCell" data-shoe-id="<?php echo htmlspecialchars($row['shoe_id'],ENT_QUOTES, 'UTF-8'); ?>"><?php echo $row['nameshoes']; ?></td>
+        <td><?php echo htmlspecialchars($row['total_scored'],ENT_QUOTES, 'UTF-8')?></td>
+        <td><?php echo htmlspecialchars($row['total_assisted'],ENT_QUOTES, 'UTF-8')?></td>
     </tr>
     <div id="shoeDetails"></div>
     <script src="../statics/js/javascript.shoev1.js"></script>

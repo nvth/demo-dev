@@ -28,10 +28,15 @@ session_start(); // save session include $user_id
 
 if (isset($_POST["login-btn"])) {
     # code...
+    $stmt = $conn->prepare("SELECT * FROM account WHERE username = ? AND password = ?");
+    $stmt->bind_param("ss", $username, $password);
+    
     $username = $_POST['userid'];
     $password = $_POST['password'];
-    $rows = mysqli_query($conn, "select * from account where username = '$username' and password = '$password'");
-    $count = mysqli_num_rows($rows);
+
+    $stmt->execute();
+    $stmt->store_result();
+    $count = $stmt->num_rows;
 
     if ($count ==1){
         $_SESSION['logged'] = true;
